@@ -1,6 +1,6 @@
 #include "freeSpaces.h"
 #include <iostream>
 
-void freeSpaces::check(freeSpaces& event){
-
-}
+// void freeSpaces::check(){
+//     this->event.day
+// }
