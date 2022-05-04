@@ -1,10 +1,12 @@
 #pragma once
-#include "newEvent.h"
 
 class freeSpaces{
     private:
-    newEvent event;
-    public:
-    void check();
-};
+    char* spaces;
 
+    public:
+    freeSpaces();
+    freeSpaces(const char* spaces);
+    freeSpaces(const freeSpaces&);
+    ~freeSpaces();
+};
