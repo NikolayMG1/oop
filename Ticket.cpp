@@ -1,8 +1,8 @@
-#include "Reservation.h"
+#include "Ticket.h"
 #include <cstring>
 #pragma warning(disable:4996)
 
-Reservation::Reservation(){
+Ticket::Ticket(){
     this->name = nullptr;
     this->day = 0;
     this->month = 0;
@@ -10,9 +10,8 @@ Reservation::Reservation(){
     this->row = 0;
     this->seat = 0;
     this->password = nullptr;
-    this->comment = nullptr;
 }
-Reservation::Reservation(char* name,unsigned day,unsigned month,unsigned year,int row,int seat,char* password,char* comment){
+Ticket::Ticket(char* name,unsigned day,unsigned month,unsigned year,int row,int seat,char* password){
     this->name = new char[strlen(name)+1];
     strcpy(this->name, name);
     this->day = day;
@@ -22,10 +21,8 @@ Reservation::Reservation(char* name,unsigned day,unsigned month,unsigned year,in
     this->seat = seat;
     this->password = new char[strlen(password)+1];
     strcpy(this->password, password);
-    this->comment = new char[strlen(comment)+1];
-    strcpy(this->comment, comment);
 }
-Reservation::Reservation(const Reservation& other){
+Ticket::Ticket(const Ticket& other){
     this->name = new char[strlen(other.name)+1];
     strcpy(this->name, other.name);
     this->day = other.day;
@@ -35,15 +32,12 @@ Reservation::Reservation(const Reservation& other){
     this->seat = other.seat;
     this->password = new char[strlen(other.password)+1];
     strcpy(this->password, other.password);
-    this->comment = new char[strlen(other.comment)+1];
-    strcpy(this->comment, other.comment);
 }
-Reservation::~Reservation(){
+Ticket::~Ticket(){
     delete[] name;
     delete[] password;
-    delete[] comment;
 }
-bool Reservation::operator==(const Reservation &other) const{
+bool Ticket::operator==(const Ticket &other) const{
     if(this->day == other.day){
         if(this->month == other.month){
             if(this->year == other.year){

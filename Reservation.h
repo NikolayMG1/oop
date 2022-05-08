@@ -13,7 +13,8 @@ class Reservation{
 
     public:
     Reservation();
-    Reservation(char* name,unsigned day,unsigned month,unsigned year,int row,int seat,char* password,char* comment;);
+    Reservation(char* name,unsigned day,unsigned month,unsigned year,int row,int seat,char* password,char* comment);
     Reservation(const Reservation&);
     ~Reservation();
+    bool operator==(const Reservation &other) const;
 };

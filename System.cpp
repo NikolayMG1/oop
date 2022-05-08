@@ -1,7 +1,7 @@
 #include "System.h"
 #include "Event.h"
 #include <cstring>
-#include <iostream>
+#pragma warning(disable:4996)
 
 System::System():event(){}
 

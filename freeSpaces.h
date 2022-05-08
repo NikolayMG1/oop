@@ -2,11 +2,11 @@
 
 class freeSpaces{
     private:
-    char* spaces;
+    int* spaces;
 
     public:
     freeSpaces();
-    freeSpaces(const char* spaces);
+    freeSpaces(const int* spaces);
     freeSpaces(const freeSpaces&);
     ~freeSpaces();
 };
