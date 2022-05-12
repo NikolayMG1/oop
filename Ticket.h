@@ -1,19 +1,20 @@
 #pragma once
+#include "Date.h"
+#include <ostream>
 
 class Ticket{
     private:
     char* name;
-    unsigned day;
-    unsigned month;
-    unsigned year;
+    Date date;
     int row;
     int seat;
     char* password;
 
     public:
     Ticket();
-    Ticket(char* name,unsigned day,unsigned month,unsigned year,int row,int seat,char* password);
+    Ticket(char* name,Date date,int row,int seat,char* password);
     Ticket(const Ticket&);
     ~Ticket();
-    bool Ticket::operator==(const Ticket &other) const;
+    bool operator==(const Ticket &other) const;
+    friend std::ostream& operator<<(std::ostream&, const Ticket&);
 };
