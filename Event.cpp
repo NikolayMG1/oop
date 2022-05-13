@@ -1,10 +1,6 @@
-#include "Hall.h"
 #include "Event.h"
 #include <cstring>
-#include "Ticket.h"
 #include <iostream>
-#include "Date.h"
-
 #pragma warning(disable:4996)
 
 Event::Event():hall(),reservation(),ticket(),date(){
@@ -26,27 +22,33 @@ Event::Event(const Event& other){
     this->reservation = other.reservation;
     this->ticket = other.ticket;
 }
-
+void Event::free(){
+    delete[] name;
+}
+void Event::copy(const Event& other){
+    this->name = new char[strlen(other.name)+1];
+    strcpy(this->name, other.name);
+    this->date = other.date;
+    this->hall = other.hall;
+    this->reservation = other.reservation;
+    this->ticket = other.ticket;
+}
 Event& Event::operator=(const Event& other){
     if(this != &other){
-        // free();
-        // copy();
+        free();
+        copy(other);
     }
     return *this;
 }
 Event::~Event(){
     delete[] name;
 }
-void Event::free(){
-    delete[] name;
-}
 // void Event::copy(const Event& other){
 //     this->day = other.day;
 //     this->month = other.month;
 //     this->year = other.year;
-
-    
 // }
+
 bool Event::operator==(const Event &other) const{
     if(this->date.getDay() != other.date.getDay()){
         // std::cout << this->date.getDay() << " " << other.date.getDay();
@@ -72,9 +74,25 @@ bool Event::operator==(const Event &other) const{
 }
 
 std::ostream& operator<<(std::ostream& out, const Event& event){
+    // std::cout << "alo";
+    if (event.name == nullptr)
+    {
+        std::cout << "nullptr sme" << std::endl;
+    }
     out << event.name << '\n';
     out << event.date << '\n';
     out << event.hall << '\n';
     return out;
 }
 
+const Date& Event::getDate() const{
+    return this->date;
+}
+
+const char* Event::getName() const{
+    return this->name;
+}
+
+Hall Event::getHall() const{
+    return this->hall;
+}

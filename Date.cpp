@@ -38,8 +38,9 @@ bool Date::operator==(const Date &other) const{
 }
 
 std::ostream& operator<<(std::ostream& out, const Date& date){
-    out <<"Day: " << date.day << '\n';
+    out <<"Day: " << date.getDay() << '\n';
     out <<"Month: " << date.month << '\n';
     out <<"Year: " << date.month << '\n';
     return out;
 }
+

@@ -7,7 +7,6 @@
 
 class Event{
     private:
-    
     char* name;
     Date date;
     Hall hall;
@@ -22,7 +21,10 @@ class Event{
     ~Event();
     bool operator==(const Event &other) const;
     friend std::ostream& operator<<(std::ostream&, const Event&);
-
+    
+    const Date& getDate() const;
+    const char* getName() const;
+    Hall getHall() const;
     private:
     void free();
     void copy(const Event&);

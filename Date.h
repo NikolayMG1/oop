@@ -15,4 +15,5 @@ public:
     unsigned getYear() const;
     bool operator==(const Date &other) const;
     friend std::ostream& operator<<(std::ostream&, const Date&);
+
 };

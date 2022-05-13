@@ -1,5 +1,4 @@
 #include "System.h"
-#include "Event.h"
 #include <cstring>
 #pragma warning(disable:4996)
 
@@ -9,13 +8,10 @@ System::System():events(){
 System::~System(){
     delete[] events;
 }
-Event*const System::getEvent() const{
+Event* System::getEvent() const{
     return events;
 }
 void System::resize(int& newCapacity){
-    // while(size >= capacity){
-    //     capacity += 1;
-    // }
     Event* newEvent = new Event[newCapacity];
     for(int i = 0; i < newCapacity-1; i++){
         newEvent[i] = this->events[i];

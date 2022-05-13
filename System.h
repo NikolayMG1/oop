@@ -14,7 +14,7 @@ class System{
     System();
     ~System();
     void addEvent(const Event&);
-    Event*const getEvent() const;
+    Event* getEvent() const;
     friend std::ostream& operator<<(std::ostream&, const System&);
     int getSize() const;
 };

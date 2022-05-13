@@ -1,7 +1,6 @@
 #include "Hall.h"
 #include <cstring>
 #include <iostream>
-#include <ostream>
 #pragma warning(disable:4996)
 
 Hall::Hall(){
@@ -45,6 +44,9 @@ bool same(const int* arr1,const int* arr2){
     }
     return true;
 }
+Hall::Hall(const Hall& other){
+    copy(other);
+}
 bool Hall::operator!=(const Hall &other)const{
     if(same(this->freeSpaces, other.freeSpaces)){
         // std::cout << this->freeSpaces << " " << other.freeSpaces;
@@ -72,4 +74,22 @@ Hall::~Hall(){
 std::ostream& operator<<(std::ostream& out, const Hall& hall){
     out <<"Number: " << hall.number << '\n';
     return out;
+}
+
+Hall& Hall::operator=(const Hall& other){
+    if(this != &other){
+        delete[] freeSpaces;
+        copy(other);
+    }
+    return *this;
+}
+
+void Hall::copy(const Hall& other){
+    this->number = other.number;
+    this->rows = other.rows;
+    this->seats = other.seats;
+    this->freeSpaces = new int[rows*seats];
+    for(int i =0 ; i < seats*rows; i++){
+        this->freeSpaces[i] = other.freeSpaces[i];
+    }
 }
