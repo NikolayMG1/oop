@@ -22,6 +22,7 @@ void System::resize(int& newCapacity){
 
 void System::addEvent(const Event& event){
     if(this->size >= this->capacity){
+        capacity++;
         resize(capacity);
     }
     this->events[size++] = event;

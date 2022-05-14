@@ -14,7 +14,6 @@ Hall::Hall(const int number, const int rows, const int seats){
     this->rows = rows;
     this->seats = seats;
     setSpaces();
-
 }
 void Hall::setSpaces(){
     // int size = sizeof(freeSpaces)/sizeof(int);
@@ -23,34 +22,36 @@ void Hall::setSpaces(){
     //     this->freeSpaces[i] = freeSpaces[i];
     // }
     int size = this->seats*this->rows;
-    this->freeSpaces = new int[size];
+    this->freeSpaces = new bool[size];
     for(int i = 0; i < size; i++){
-        this->freeSpaces[i] = i+1;
+        this->freeSpaces[i] = false;
+        std::cout << freeSpaces[i];
     }
 }
-const int* Hall::getSpaces() const{
+const bool* Hall::getSpaces() const{
     return this->freeSpaces;
 }
-bool same(const int* arr1,const int* arr2){
-    int size1 = sizeof(arr1)/sizeof(arr1);
-    int size2 = sizeof(arr2)/sizeof(arr2);
-    if(size1 != size2){
-        return false;
-    }
-    for(int i = 0; i < size1; i++){
-        if(arr1[i] != arr2[i]){
-            return false;
-        }
-    }
-    return true;
-}
+// bool same(const int* arr1,const int* arr2){
+//     int size1 = sizeof(arr1)/sizeof(arr1);
+//     int size2 = sizeof(arr2)/sizeof(arr2);
+//     if(size1 != size2){
+//         return false;
+//     }
+//     for(int i = 0; i < size1; i++){
+//         if(arr1[i] != arr2[i]){
+//             return false;
+//         }
+//     }
+//     return true;
+// }
 Hall::Hall(const Hall& other){
     copy(other);
 }
 bool Hall::operator!=(const Hall &other)const{
-    if(same(this->freeSpaces, other.freeSpaces)){
-        // std::cout << this->freeSpaces << " " << other.freeSpaces;
-        return false;
+    for(int i = 0; i < seats*rows; i++){
+        if(this->freeSpaces[i] == other.freeSpaces[i]){
+            return false;
+        }
     }
     if(this->number == other.number){
         //std::cout << this->number << " " << other.number;
@@ -88,7 +89,7 @@ void Hall::copy(const Hall& other){
     this->number = other.number;
     this->rows = other.rows;
     this->seats = other.seats;
-    this->freeSpaces = new int[rows*seats];
+    this->freeSpaces = new bool[rows*seats];
     for(int i =0 ; i < seats*rows; i++){
         this->freeSpaces[i] = other.freeSpaces[i];
     }

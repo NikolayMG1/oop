@@ -10,7 +10,7 @@ Ticket::Ticket():date(){
     this->seat = 0;
     this->password = nullptr;
 }
-Ticket::Ticket(char* name,Date date,int row,int seat,char* password){
+Ticket::Ticket(const char* name,const Date& date,const int row,const int seat,const char* password){
     this->name = new char[strlen(name)+1];
     strcpy(this->name, name);
     this->date = date;
@@ -20,13 +20,7 @@ Ticket::Ticket(char* name,Date date,int row,int seat,char* password){
     strcpy(this->password, password);
 }
 Ticket::Ticket(const Ticket& other){
-    this->name = new char[strlen(other.name)+1];
-    strcpy(this->name, other.name);
-    this->date = date;
-    this->row = other.row;
-    this->seat = other.seat;
-    this->password = new char[strlen(other.password)+1];
-    strcpy(this->password, other.password);
+    copy(other);
 }
 Ticket::~Ticket(){
     delete[] name;
@@ -46,6 +40,28 @@ bool Ticket::operator==(const Ticket &other) const{
 }
 
 std::ostream& operator<<(std::ostream& out, const Ticket& ticket){
-    out << '\n';
+    out << ticket.name << ' ' << ticket.date << " " << ticket.row << " " << ticket.seat << " " <<  ticket.password;
     return out;
+}
+
+void Ticket::free(){
+    delete[] name;
+    delete[] password;
+}
+void Ticket::copy(const Ticket& other){
+    this->name = new char[strlen(other.name)+1];
+    strcpy(this->name, other.name);
+    this->date = date;
+    this->row = other.row;
+    this->seat = other.seat;
+    this->password = new char[strlen(other.password)+1];
+    strcpy(this->password, other.password);
+}
+
+Ticket& Ticket::operator=(const Ticket& other){
+    if(this != &other){
+        free();
+        copy(other);
+    }
+    return *this;
 }

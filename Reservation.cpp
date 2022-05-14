@@ -16,6 +16,7 @@ Reservation::Reservation(const Ticket& ticket,const char* comment){
     // strcpy(this->password, password);
     // this->comment = new char[strlen(comment)+1];
     this->ticket = ticket;
+    this->comment = new char[strlen(comment)+1];
     strcpy(this->comment, comment);
 }
 Reservation::Reservation(const Reservation& other){
@@ -28,10 +29,28 @@ Reservation::Reservation(const Reservation& other){
     // strcpy(this->password, other.password);
     // this->comment = new char[strlen(other.comment)+1];
     this->ticket = other.ticket;
+    this->comment = new char[strlen(other.comment)+1];
     strcpy(this->comment, other.comment);
 }
 Reservation::~Reservation(){
     delete[] comment;
+}
+
+Reservation& Reservation::operator=(const Reservation& other){
+    if(this != &other){
+        free();
+        copy(other);
+    }
+    return *this;
+}
+
+void Reservation::free(){
+    delete[] comment;
+}
+void Reservation::copy(const Reservation& other){
+    this->comment = new char[strlen(other.comment)+1];
+    strcpy(this->comment, other.comment);
+    this->ticket = ticket;
 }
 // bool Reservation::bookedReservation(const char* name,const Date& date,const int row,const int seat,const char* password){
 //     if(this->name == name){
@@ -53,11 +72,6 @@ bool Reservation::operator==(const Reservation &other) const{
         }
     }
     return false;
-}
-void Reservation::removeReservation(const Reservation& other){
-    if(this->ticket == other.ticket){
-        delete this;
-    }
 }
 
 std::ostream& operator<<(std::ostream& out, const Reservation& reservation){

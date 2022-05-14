@@ -4,28 +4,19 @@
 int main(){
 
     Date date(1, 1, 1);
-    // std::cout << date;
-    Hall hall1(1, 1, 1);
-    Hall hall2(1, 2, 1);
-    Reservation reservation1;
-    Reservation reservation2;
-    Ticket ticket1;
+    Hall hall1(5, 5, 1);
+    //Hall hall2(4, 2, 1);
+    Ticket ticket1("asd",date, 1, 1, "password");
+    Reservation reservation1(ticket1, "comment");
     Ticket ticket2;
-    Event event1("asd1", date, hall1, reservation1, ticket1);
-    Event event2("asd", date, hall2, reservation1, ticket1);
-
-    // std::cout << event1 << std::endl;
-    // std::cout << event2 << std::endl;
-
+    Event event1("asd1", date, hall1);
+    event1.addReservation(reservation1);
+    //Event event2("asd", date, hall2, reservation1, ticket1);
     System system1;
     system1.addEvent(event1);
-    system1.addEvent(event2);
-    // bool isTrue = (event1 == event2);
-    // std::cout << isTrue;
-    for(int i = 0; i < 2; i++){
-        // std::cout << "dsa";
-        std::cout << '\n';
-        std::cout << system1.getEvent()[i] << '\n';
+    std::cout << event1;
+    //system1.addEvent(event2);
+    for(int i = 0; i < 1; i++){
+        //std::cout << system1.getEvent()[i] << '\n';
     }
-    // std::cout << std::boolalpha << !() << std::endl;
 }

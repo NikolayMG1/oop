@@ -6,7 +6,7 @@ class Hall{
     int number;
     int rows;
     int seats;
-    int* freeSpaces;
+    bool* freeSpaces;
     void copy(const Hall& other);
 
     public:
@@ -14,7 +14,7 @@ class Hall{
     Hall(const int number, const int rows, const int seats);
     ~Hall();
     void setSpaces();
-    const int* getSpaces() const;
+    const bool* getSpaces() const;
     Hall& operator=(const Hall& other);
     bool operator!=(const Hall &other)const;
     friend std::ostream& operator<<(std::ostream&, const Hall&);
