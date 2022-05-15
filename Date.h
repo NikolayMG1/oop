@@ -12,6 +12,7 @@ public:
     unsigned getDay() const;
     unsigned getMonth() const;
     unsigned getYear() const;
+
     //Date& operator=(const Date&);
     bool operator==(const Date &other) const;
     friend std::ostream& operator<<(std::ostream&, const Date&);

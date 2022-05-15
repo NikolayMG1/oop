@@ -28,7 +28,7 @@ void Hall::setSpaces(){
         //std::cout << freeSpaces[i];
     }
 }
-const bool* Hall::getSpaces() const{
+bool* Hall::getSpaces() const{
     return this->freeSpaces;
 }
 // bool same(const int* arr1,const int* arr2){
@@ -44,6 +44,12 @@ const bool* Hall::getSpaces() const{
 //     }
 //     return true;
 // }
+int Hall::getRows() const{
+    return rows;
+}
+int Hall::getSeats() const{
+    return seats;
+}
 Hall::Hall(const Hall& other){
     copy(other);
 }
@@ -97,5 +103,7 @@ std::istream& operator >> (std::istream& in,  Hall& hall){
 }
 std::ostream& operator<<(std::ostream& out, const Hall& hall){
     out << "Hall number: " << hall.number << '\n';
+    // out << "Hall number: " << hall.rows << '\n';
+    // out << "Hall number: " << hall.seats << '\n';
     return out;
 }

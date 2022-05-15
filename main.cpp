@@ -4,11 +4,7 @@
 int main(){
 
     // Date date(1, 1, 1);
-    Hall hall1(1, 10, 10);
-    Hall hall2(2, 20, 20);
-    Hall hall3(3, 30, 30);
-    Hall hall4(4, 40, 40);
-    Hall hall5(5, 50, 50);
+
     //std::cout << hall3;
     // Ticket ticket1("asd", date, 1, 1, "password");
     // Reservation reservation1(ticket1, "comment");

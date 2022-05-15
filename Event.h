@@ -10,6 +10,8 @@ class Event{
     char* name;
     Date date;
     Hall hall;
+    bool* freeSpaces;
+    int spaces = hall.getRows()*hall.getSeats();
     Reservation* reservations;
     Ticket ticket;
     size_t reservationCounter = 0;
@@ -31,6 +33,7 @@ class Event{
     void addReservation(const Reservation& reservation);
     void removeReservation(const Reservation& reservation);
     Reservation* getReservations() const;
+    bool* getFreeSpaces() const;
     private:
     void free();
     void copy(const Event&);

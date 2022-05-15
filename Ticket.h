@@ -11,7 +11,7 @@ class Ticket{
     char* password;
     void free();  
     void copy(const Ticket&);
-    char buffer[1024];
+
 
     public:
     Ticket();

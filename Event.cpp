@@ -4,6 +4,10 @@
 #pragma warning(disable:4996)
 
 Event::Event():hall(),ticket(),date(),reservations(){
+    this->freeSpaces = new bool[spaces];
+    for(int i = 0;i < spaces; i++){
+        freeSpaces[i] = true;
+    }
     this->name = nullptr;
     this->reservations = new Reservation[reservationCapacity];
 }
@@ -12,6 +16,10 @@ Event::Event(const char* name,const Date& date, const Hall& hall){
     strcpy(this->name, name);
     this->date = date;
     this->hall = hall;
+    this->freeSpaces = new bool[spaces];
+    for(int i = 0;i < spaces; i++){
+        freeSpaces[i] = true;
+    }
     this->reservations = new Reservation[reservationCapacity];
 }
 Event::Event(const Event& other){
@@ -19,8 +27,13 @@ Event::Event(const Event& other){
     strcpy(this->name, other.name);
     this->date = other.date;
     this->hall = other.hall;
+    this->freeSpaces = new bool[other.spaces];
+    for(int i = 0;i < spaces; i++){
+        freeSpaces[i] = other.freeSpaces[i];
+    }
 }
 void Event::free(){
+    delete[] freeSpaces;
     delete[] name;
     delete[] reservations;
 }
@@ -30,6 +43,9 @@ Reservation* Event::getReservations() const{
 void Event::copy(const Event& other){
     this->name = new char[strlen(other.name)+1];
     strcpy(this->name, other.name);
+    for(int i = 0; i < spaces;i++){
+        this->freeSpaces[i] = other.freeSpaces[i];
+    }
     this->date = other.date;
     this->hall = other.hall;
     this->reservations = other.reservations;
@@ -76,6 +92,9 @@ const char* Event::getName() const{
 Hall Event::getHall() const{
     return this->hall;
 }
+bool* Event::getFreeSpaces() const{
+    return freeSpaces;
+}
 void Event::removeReservation(const Reservation& reservation){
     Reservation* tempReservation = new Reservation[reservationCounter-1];
     int k = 0;
@@ -88,15 +107,11 @@ void Event::removeReservation(const Reservation& reservation){
     this->reservations = tempReservation;
 }
 void Event::addReservation(const Reservation& reservation){
-    //std::cout << "bonk1";
     if(this->reservationCounter >= this->reservationCapacity){
         reservationCapacity++;
         resize(reservationCapacity);
-        //std::cout << "bonk2";
     }
-    //std::cout << "bonk3";
     this->reservations[reservationCounter++] = reservation;//!!!
-    //std::cout << "bonk4";
 }
 void Event::resize(size_t& newCapacity){
     Reservation* newReservation = new Reservation[newCapacity];
@@ -106,7 +121,6 @@ void Event::resize(size_t& newCapacity){
     delete[] this->reservations;
     this->reservations = newReservation;
 }
-
 std::istream& operator >> (std::istream& in,  Event& event){
     char buffer[1024];
     event.free();
