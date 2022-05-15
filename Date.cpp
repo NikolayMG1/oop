@@ -11,7 +11,6 @@ Date::Date(const unsigned day, const unsigned month, const unsigned year){
     this->month = month;
     this->year = year;
 }
-
 unsigned Date::getDay() const{
     return day;
 }
@@ -36,9 +35,18 @@ bool Date::operator==(const Date &other) const{
     }
     return true;
 }
-
+std::istream& operator >>(std::istream& in,  Date& date){
+    std::cout << "Enter the day: ";
+    in >> date.day;
+    std::cout << "Enter the month: ";
+    in >> date.month;
+    std::cout << "Enter the year: ";
+    in >> date.year;    
+    return in;
+}
 std::ostream& operator<<(std::ostream& out, const Date& date){
-    out <<"Day: " << date.getDay() << '\n';
+    out << '\n';
+    out <<"Day: " << date.day << '\n';
     out <<"Month: " << date.month << '\n';
     out <<"Year: " << date.month << '\n';
     return out;
