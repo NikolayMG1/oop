@@ -24,14 +24,15 @@ class Event{
     ~Event();
     bool operator==(const Event &other) const;
     friend std::ostream& operator<<(std::ostream&, const Event&);
+    friend std::istream& operator >> (std::istream& in,  Event& event);
     const Date& getDate() const;
     const char* getName() const;
     Hall getHall() const;
     void addReservation(const Reservation& reservation);
     void removeReservation(const Reservation& reservation);
-
+    Reservation* getReservations() const;
     private:
     void free();
     void copy(const Event&);
-    Ticket getTicket() const;
+    Ticket& getTicket() const;
 };

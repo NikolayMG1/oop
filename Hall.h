@@ -18,5 +18,6 @@ class Hall{
     Hall& operator=(const Hall& other);
     bool operator!=(const Hall &other)const;
     friend std::ostream& operator<<(std::ostream&, const Hall&);
+    friend std::istream& operator >> (std::istream& in, Hall& hall);
     Hall(const Hall& other);
 };

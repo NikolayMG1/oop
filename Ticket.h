@@ -11,6 +11,7 @@ class Ticket{
     char* password;
     void free();  
     void copy(const Ticket&);
+    char buffer[1024];
 
     public:
     Ticket();
@@ -19,6 +20,7 @@ class Ticket{
     ~Ticket();
     bool operator==(const Ticket &other) const;
     friend std::ostream& operator<<(std::ostream&, const Ticket&);
+    friend std::istream& operator >> (std::istream& in,  Ticket& Ticket);
     void buyTicket();
     Ticket& operator=(const Ticket& other);
 };

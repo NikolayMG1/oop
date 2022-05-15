@@ -25,7 +25,7 @@ void Hall::setSpaces(){
     this->freeSpaces = new bool[size];
     for(int i = 0; i < size; i++){
         this->freeSpaces[i] = false;
-        std::cout << freeSpaces[i];
+        //std::cout << freeSpaces[i];
     }
 }
 const bool* Hall::getSpaces() const{
@@ -67,16 +67,9 @@ bool Hall::operator!=(const Hall &other)const{
     }
     return true;
 }
-
 Hall::~Hall(){
     delete[] freeSpaces;
 }
-
-std::ostream& operator<<(std::ostream& out, const Hall& hall){
-    out <<"Number: " << hall.number << '\n';
-    return out;
-}
-
 Hall& Hall::operator=(const Hall& other){
     if(this != &other){
         delete[] freeSpaces;
@@ -84,7 +77,6 @@ Hall& Hall::operator=(const Hall& other){
     }
     return *this;
 }
-
 void Hall::copy(const Hall& other){
     this->number = other.number;
     this->rows = other.rows;
@@ -93,4 +85,17 @@ void Hall::copy(const Hall& other){
     for(int i =0 ; i < seats*rows; i++){
         this->freeSpaces[i] = other.freeSpaces[i];
     }
+}
+std::istream& operator >> (std::istream& in,  Hall& hall){
+    std::cout << "Enter the number of the hall: ";
+    in >> hall.number;
+    // std::cout << "Enter number of the rows: ";
+    // in >> hall.rows;
+    // std::cout << "Enter number of the seats: ";
+    // in >> hall.seats;
+    return in;
+}
+std::ostream& operator<<(std::ostream& out, const Hall& hall){
+    out << "Hall number: " << hall.number << '\n';
+    return out;
 }

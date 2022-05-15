@@ -3,7 +3,7 @@
 #include <iostream>
 #pragma warning(disable:4996)
 
-Event::Event():hall(),ticket(),date(){
+Event::Event():hall(),ticket(),date(),reservations(){
     this->name = nullptr;
     this->reservations = new Reservation[reservationCapacity];
 }
@@ -12,37 +12,27 @@ Event::Event(const char* name,const Date& date, const Hall& hall){
     strcpy(this->name, name);
     this->date = date;
     this->hall = hall;
-    // this->reservations = new Reservation[reservationCounter];
-    // for(int i = 0; i < reservationCounter; i++){
-    //     this->reservations[i] = reservation[i];
-    // }
-    // this->ticket = ticket;
+    this->reservations = new Reservation[reservationCapacity];
 }
-// void Event::addReservation(const Reservation& reservation){
-//     if(this->reservationCounter >= this->reservationCapacity){
-//         resize(reservationCapacity);
-//     }
-//     this->reservations[reservationCounter++] = reservation;
-// }
-
 Event::Event(const Event& other){
     this->name = new char[strlen(other.name)+1];
     strcpy(this->name, other.name);
     this->date = other.date;
     this->hall = other.hall;
-    // this->reservations = other.reservations;
-    // this->ticket = other.ticket;
 }
 void Event::free(){
     delete[] name;
+    delete[] reservations;
+}
+Reservation* Event::getReservations() const{
+    return reservations;
 }
 void Event::copy(const Event& other){
     this->name = new char[strlen(other.name)+1];
     strcpy(this->name, other.name);
     this->date = other.date;
     this->hall = other.hall;
-    // this->reservations = other.reservations;
-    // this->ticket = other.ticket;
+    this->reservations = other.reservations;
 }
 Event& Event::operator=(const Event& other){
     if(this != &other){
@@ -52,14 +42,8 @@ Event& Event::operator=(const Event& other){
     return *this;
 }
 Event::~Event(){
-    delete[] name;
+    free();
 }
-// void Event::copy(const Event& other){
-//     this->day = other.day;
-//     this->month = other.month;
-//     this->year = other.year;
-// }
-
 bool Event::operator==(const Event &other) const{
     if(this->date.getDay() != other.date.getDay()){
         // std::cout << this->date.getDay() << " " << other.date.getDay();
@@ -83,47 +67,37 @@ bool Event::operator==(const Event &other) const{
     }
     return true;
 }
-
-std::ostream& operator<<(std::ostream& out, const Event& event){
-    // std::cout << "alo";
-    if (event.name == nullptr)
-    {
-        std::cout << "nullptr sme" << std::endl;
-    }
-    out << event.name << '\n';
-    out << event.date << '\n';
-    out << event.hall << '\n';
-    //out << event.ticket << '\n';
-    return out;
-}
-
 const Date& Event::getDate() const{
     return this->date;
 }
-
 const char* Event::getName() const{
     return this->name;
 }
-
 Hall Event::getHall() const{
     return this->hall;
 }
-
-Ticket Event::getTicket() const{
-    return this->ticket;
+void Event::removeReservation(const Reservation& reservation){
+    Reservation* tempReservation = new Reservation[reservationCounter-1];
+    int k = 0;
+    for(int i = 0;i < reservationCounter;i++){
+        if(!(this->reservations[i] == reservation)){
+            tempReservation[k++] = this->reservations[i];
+        }
+    }
+    delete[] this->reservations;
+    this->reservations = tempReservation;
 }
-
-// void Event::removeReservation(const Reservation& reservation){
-    
-// }
 void Event::addReservation(const Reservation& reservation){
+    //std::cout << "bonk1";
     if(this->reservationCounter >= this->reservationCapacity){
         reservationCapacity++;
         resize(reservationCapacity);
+        //std::cout << "bonk2";
     }
-    this->reservations[reservationCounter++] = reservation;
+    //std::cout << "bonk3";
+    this->reservations[reservationCounter++] = reservation;//!!!
+    //std::cout << "bonk4";
 }
-
 void Event::resize(size_t& newCapacity){
     Reservation* newReservation = new Reservation[newCapacity];
     for(int i = 0; i < newCapacity-1; i++){
@@ -131,4 +105,28 @@ void Event::resize(size_t& newCapacity){
     }
     delete[] this->reservations;
     this->reservations = newReservation;
+}
+
+std::istream& operator >> (std::istream& in,  Event& event){
+    char buffer[1024];
+    event.free();
+    std::cout << "Enter a name: ";
+    in >> buffer;
+    event.name = new char[strlen(buffer)+1];
+    strcpy(event.name, buffer);
+    in >> event.date;
+    in >> event.hall;
+    // in >> event.reservations;
+    // in >> event.ticket;
+    return in;
+}
+std::ostream& operator<<(std::ostream& out, const Event& event){
+    if (event.name == nullptr){
+        std::cout << "nullptr sme" << std::endl;
+    }
+    out << "Performance name: " << event.name << '\n';
+    out << event.date << '\n';
+    out << event.hall << '\n';
+    //out << event.ticket << '\n';
+    return out;
 }
